@@ -13,6 +13,8 @@ namespace EnvVarsManager
     private ListViewGroup mUserVariablesViewGroup = new ListViewGroup("User", HorizontalAlignment.Left);
     private ListViewGroup mSystemVariablesViewGroup = new ListViewGroup("System", HorizontalAlignment.Left);
 
+    private bool mSearchWasFocused = false;
+
     public MainForm()
     {
       InitializeComponent();
@@ -213,6 +215,30 @@ namespace EnvVarsManager
       cmd += t == EnvironmentVariableTarget.Machine ? "Machine" : "User";
 
       mWorker.DoCommand(cmd);
+    }
+
+    protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+    {
+        if (keyData == (Keys.Control | Keys.F))
+        {
+            mSearchTextBox.Focus();
+            return true;
+        }
+        return base.ProcessCmdKey(ref msg, keyData);
+    }
+
+    private void mSearchTextBox_Enter(object sender, EventArgs e)
+    {
+      if (!mSearchWasFocused)
+      {
+        mSearchWasFocused = true;
+        mSearchTextBox.Text = "";
+      }
+    }
+
+    private void mSearchTextBox_TextChanged(object sender, EventArgs e)
+    {
+      string searchText = mSearchTextBox.Text;
     }
   }
 }
