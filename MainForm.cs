@@ -14,6 +14,7 @@ namespace EnvVarsManager
     private ListViewGroup mSystemVariablesViewGroup = new ListViewGroup("System", HorizontalAlignment.Left);
 
     private bool mSearchWasFocused = false;
+    private string mSearchString;
 
     public MainForm()
     {
@@ -99,6 +100,7 @@ namespace EnvVarsManager
 
     private void ReloadList()
     {
+      mVariablesListView.BeginUpdate();
       mVariablesListView.Items.Clear();
 
       IDictionary entries;
@@ -108,6 +110,8 @@ namespace EnvVarsManager
 
       entries = Environment.GetEnvironmentVariables(EnvironmentVariableTarget.Machine);
       AddEntriesToList(entries, mVariablesListView.Groups["System"]);
+
+      mVariablesListView.EndUpdate();
     }
 
     private void AddEntriesToList(IDictionary entries, ListViewGroup group)
@@ -115,12 +119,17 @@ namespace EnvVarsManager
       if (entries == null || entries.Count == 0)
         return;
 
-      string value;
-      string key;
+      string value, valueLC;
+      string key, keyLC;
       foreach (DictionaryEntry entry in entries)
       {
-        key = (string)entry.Key;
-        value = (string)entry.Value;
+        key = entry.Key.ToString();
+        value = entry.Value.ToString();
+        keyLC = key.ToLower();
+        valueLC = value.ToLower();
+
+        if (!string.IsNullOrEmpty(mSearchString) && !(keyLC.Contains(mSearchString) || valueLC.Contains(mSearchString)))
+            continue;
 
         ListViewItem item;
         if (group != null)
@@ -219,19 +228,14 @@ namespace EnvVarsManager
 
     protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
     {
-        // Set focus on search box
-        if (keyData == (Keys.Control | Keys.F))
-        {
-            mSearchTextBox.Focus();
-            return true;
-        }
-        // Toggle search result mode
-        else if (keyData == (Keys.Control | Keys.S))
-        {
-            mExcludingSearchCheckBox.Checked = !mExcludingSearchCheckBox.Checked;
-            return true;
-        }
-        return base.ProcessCmdKey(ref msg, keyData);
+      // Set focus on search box
+      if (keyData == (Keys.Control | Keys.F))
+      {
+        mSearchTextBox.Focus();
+        mSearchTextBox.SelectAll();
+        return true;
+      }
+      return base.ProcessCmdKey(ref msg, keyData);
     }
 
     private void mSearchTextBox_Enter(object sender, EventArgs e)
@@ -245,12 +249,8 @@ namespace EnvVarsManager
 
     private void mSearchTextBox_TextChanged(object sender, EventArgs e)
     {
-      string searchText = mSearchTextBox.Text;
-    }
-
-    private void mExcludingSearchCheckBox_CheckedChanged(object sender, EventArgs e)
-    {
-        //
+      mSearchString = mSearchTextBox.Text.ToLower();
+      ReloadList();
     }
   }
 }
