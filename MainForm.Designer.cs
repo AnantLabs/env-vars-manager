@@ -59,7 +59,6 @@
             this.mAddUserContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mAddSystemContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mRemoveContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mExcludingSearchCheckBox = new System.Windows.Forms.CheckBox();
             mUserVariablesListViewColumnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             mUserVariablesListViewColumnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.mMainMenuStrip.SuspendLayout();
@@ -173,7 +172,6 @@
             // 
             // mVariablesGroupBox
             // 
-            this.mVariablesGroupBox.Controls.Add(this.mExcludingSearchCheckBox);
             this.mVariablesGroupBox.Controls.Add(this.mSearchTextBox);
             this.mVariablesGroupBox.Controls.Add(this.mRefreshButton);
             this.mVariablesGroupBox.Controls.Add(this.mRemoveVariableButton);
@@ -191,7 +189,7 @@
             // mSearchTextBox
             // 
             this.mSearchTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.mSearchTextBox.Location = new System.Drawing.Point(138, 586);
+            this.mSearchTextBox.Location = new System.Drawing.Point(138, 597);
             this.mSearchTextBox.Name = "mSearchTextBox";
             this.mSearchTextBox.Size = new System.Drawing.Size(220, 20);
             this.mSearchTextBox.TabIndex = 3;
@@ -322,17 +320,6 @@
             this.mRemoveContextMenuItem.Text = "Remove";
             this.mRemoveContextMenuItem.Click += new System.EventHandler(this.mRemoveContextMenuItem_Click);
             // 
-            // mExcludingSearchCheckBox
-            // 
-            this.mExcludingSearchCheckBox.AutoSize = true;
-            this.mExcludingSearchCheckBox.Location = new System.Drawing.Point(138, 609);
-            this.mExcludingSearchCheckBox.Name = "mExcludingSearchCheckBox";
-            this.mExcludingSearchCheckBox.Size = new System.Drawing.Size(107, 17);
-            this.mExcludingSearchCheckBox.TabIndex = 4;
-            this.mExcludingSearchCheckBox.Text = "Excluding &search";
-            this.mExcludingSearchCheckBox.UseVisualStyleBackColor = true;
-            this.mExcludingSearchCheckBox.CheckedChanged += new System.EventHandler(this.mExcludingSearchCheckBox_CheckedChanged);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -381,7 +368,6 @@
         private System.Windows.Forms.ToolStripMenuItem mRemoveMainMenuItem;
         private System.Windows.Forms.Button mRefreshButton;
         private System.Windows.Forms.TextBox mSearchTextBox;
-        private System.Windows.Forms.CheckBox mExcludingSearchCheckBox;
     }
 }
 
