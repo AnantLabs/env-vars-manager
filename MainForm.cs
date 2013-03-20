@@ -219,9 +219,16 @@ namespace EnvVarsManager
 
     protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
     {
+        // Set focus on search box
         if (keyData == (Keys.Control | Keys.F))
         {
             mSearchTextBox.Focus();
+            return true;
+        }
+        // Toggle search result mode
+        else if (keyData == (Keys.Control | Keys.S))
+        {
+            mExcludingSearchCheckBox.Checked = !mExcludingSearchCheckBox.Checked;
             return true;
         }
         return base.ProcessCmdKey(ref msg, keyData);
@@ -239,6 +246,11 @@ namespace EnvVarsManager
     private void mSearchTextBox_TextChanged(object sender, EventArgs e)
     {
       string searchText = mSearchTextBox.Text;
+    }
+
+    private void mExcludingSearchCheckBox_CheckedChanged(object sender, EventArgs e)
+    {
+        //
     }
   }
 }
